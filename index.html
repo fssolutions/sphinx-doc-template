@@ -35,7 +35,7 @@
     <section>
         <aside class="menu">
             <div class="search">
-                <input placeholder="Type your search here"  onkeyup="filterMenu(this.value)" />
+                <input placeholder="Type your search here" onkeyup="filterMenu(this.value)" />
             </div>
             <nav>
                 <ul class="menu-root"></ul>
@@ -47,10 +47,34 @@
         <section class="content">
             <!-- Content -->
             <h1>Starting here</h1>
+            <h2>Starting here</h2>
+            <h3>Starting here</h3>
+            <h4>Starting here</h4>
+            <h5>Starting here</h5>
+            <div mark class="important">e ai vai o que aqui</div>
+
+            <div class="highlight">
+                <button copy>Copy</button>
+                <?prettify lang=scm?>
+                <pre class="prettyprint linenums">
+                    var = "teste";
+                    for(let i in a){
+                        console.info(">>", i)
+                        console.info(">>", i)
+                        console.info(">>", i)
+                        console.info(">>", i)
+                        console.info(">>", i)
+                    }            </pre>
+
+            </div>
+            <div mark class="note">e ai vai o que aqui</div>
+            <div mark class="tip">e ai vai o que aqui</div>
+            <div mark>e ai vai o que aqui</div>
         </section>
     </section>
     <script src="scripts/script.js"></script>
     <script>LoadMenu()</script>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?lang=css&amp;skin=sons-of-obsidian"></script>
 </body>
 
 </html>
