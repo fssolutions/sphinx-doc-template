@@ -205,3 +205,11 @@ function LoadMenu() {
     ]
     resetMenu();
 }
+
+document.addEventListener('DOMContentLoaded', function(event){
+    new ClipboardJS('div.highlight button[copy]', {
+        text: function(trigger) {
+            return trigger.nextElementSibling.outerText;
+        }
+    });                  
+});

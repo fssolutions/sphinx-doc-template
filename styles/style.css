@@ -278,10 +278,13 @@ div.highlight:hover button[copy] {
     cursor: pointer;
 }
 div.highlight button[copy] {
-    visibility: hidden;
+    /* visibility: hidden; */
     position: absolute;
     right: 10px;
     top: 10px;
+    border: none;
+    background: none;
+    outline: none;
 }
 
 pre {
