@@ -111,6 +111,7 @@ aside.menu .search input {
 aside.menu nav {
     overflow-y: hidden;
     height: calc(100% - 80px);
+    padding: 0px 15px;
 }
 
 aside.menu nav:hover{
@@ -147,4 +148,106 @@ section.content {
     margin-left: calc(var(--menu-width) + var(--border-padding));
     will-change: margin;
     transition-property: margin;
+}
+
+
+
+
+ul.menu-root,
+ul.menu-root ul {
+    padding-left: 0px;
+    margin-left: 0px;
+    position: relative;
+}
+
+    ul.menu-root li {
+        list-style-type: none;
+        height: auto;
+        overflow-y: hidden;
+        transition: .658s all;
+    }
+
+        ul.menu-root li a {
+            display: block;
+            padding: 10px;
+            padding-left: 30px;
+            position: relative;
+            font-size: 14px;
+            cursor: pointer;
+            color: black;
+            text-decoration: none;
+        }
+
+            ul.menu-root li a *:first-child {
+                padding: 0px 15px 0px 5px;
+            }
+
+
+        ul.menu-root li:hover > a {
+            background-color: rgba(249,249,249, 1);
+            text-decoration: none;
+        }
+
+        ul.menu-root li.semi-active > a {
+            background-color: #E6F2FA;
+        }
+
+        ul.menu-root li.active > a {
+            font-weight: bold;
+            background-color: #E6F2FA;
+            /* background-color: #E1E1E1; */
+            /* background: rgba(99,173,221, 0.5); */
+        }
+
+        ul.menu-root li a + ul li {
+            padding-left: 10px;
+        }
+
+        ul.menu-root li a + ul:not(:empty)::before {
+            pointer-events: none;
+            display: inline-block;
+            content: " ";
+            background-image: url('data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjUxMnB4IiBoZWlnaHQ9IjUxMnB4IiB2aWV3Qm94PSIwIDAgMjg0LjkyOSAyODQuOTI5IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAyODQuOTI5IDI4NC45Mjk7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPGc+Cgk8cGF0aCBkPSJNMjgyLjA4Miw3Ni41MTFsLTE0LjI3NC0xNC4yNzNjLTEuOTAyLTEuOTA2LTQuMDkzLTIuODU2LTYuNTctMi44NTZjLTIuNDcxLDAtNC42NjEsMC45NS02LjU2MywyLjg1NkwxNDIuNDY2LDE3NC40NDEgICBMMzAuMjYyLDYyLjI0MWMtMS45MDMtMS45MDYtNC4wOTMtMi44NTYtNi41NjctMi44NTZjLTIuNDc1LDAtNC42NjUsMC45NS02LjU2NywyLjg1NkwyLjg1Niw3Ni41MTVDMC45NSw3OC40MTcsMCw4MC42MDcsMCw4My4wODIgICBjMCwyLjQ3MywwLjk1Myw0LjY2MywyLjg1Niw2LjU2NWwxMzMuMDQzLDEzMy4wNDZjMS45MDIsMS45MDMsNC4wOTMsMi44NTQsNi41NjcsMi44NTRzNC42NjEtMC45NTEsNi41NjItMi44NTRMMjgyLjA4Miw4OS42NDcgICBjMS45MDItMS45MDMsMi44NDctNC4wOTMsMi44NDctNi41NjVDMjg0LjkyOSw4MC42MDcsMjgzLjk4NCw3OC40MTcsMjgyLjA4Miw3Ni41MTF6IiBmaWxsPSIjMDAwMDAwIi8+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==');
+            background-size: contain;
+            width: 12px;
+            height: 12px;
+            position: absolute;
+            top: -25px;
+            left: 8px;
+            font-size: 18px;
+            transition: .658s transform cubic-bezier(0.19, 1, 0.22, 1);
+            will-change: transform;
+        }
+
+        ul.menu-root li.active > a + ul::before {
+            transform: rotate(180deg);
+            font-weight: bold;
+        }
+
+        ul.menu-root li > ul {
+            max-height: 0vh;
+            transition: max-height .45s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        ul.menu-root li.active > ul {
+            max-height: 100vh;
+            transition: max-height .65s ease-in;
+        }
+
+@keyframes highlight {
+    0% {
+        background: orange;
+    }
+
+    100% {
+        background: none;
+    }
+}
+
+#mniRootFavorites.focus > a {
+    animation: highlight 1s;
+}
+
+#mniRootFavorites > a > i:first-child {
+    color: orange;
 }

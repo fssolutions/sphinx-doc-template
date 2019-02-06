@@ -4,15 +4,13 @@ function makeLiHtml(v, ul) {
     var li = document.createElement("li");
     li.id = v.id;
     var a = document.createElement("a");
-    var isFavorite = !!mnRm.filter(function (x) { return x.parentId == 'mniRootFavorites' && x.target == v.target }).length ? ' active' : '';
-    var favorite = v.target.length > 2 ? "<i class='fa fa-star favorite" + (isFavorite) + "' title='Favorite' onclick='favoriteMenu(event, \"" + v.id + "\")'></i>" : "";
     a.menu = v;
     a.title = v.title;
     if (v.target.length > 0) {
         a.href = v.target;
     }
 
-    a.innerHTML = '<i class="' + v.icon + '"></i> ' + v.title + ' ' + favorite;
+    a.innerHTML = v.title;
     a.onclick = function (ev) {
         if (ev && (ev.shiftKey || ev.ctrlKey))
             return;
@@ -27,23 +25,19 @@ function makeLiHtml(v, ul) {
             x.classList.remove('active');
         };
 
-        if (ev.clientX > 300) {
-            var status = this.parentElement.classList.toggle('active');
-            if (!status) {
-                var qsa = this.parentElement.querySelectorAll('li.active')
-                for (var i = 0; i < qsa.length; i++) {
-                    var x = qsa[i];
-                    x.classList.remove('active');
-                    x.classList.remove('semi-active');
-                };
-            }
-            if (document.querySelector(".menu-float-active"))
-                showMenus(this.menu.id, ev);
-        } else {
-            showMenus(this.menu.id, ev);
-            //if (this.menu.target != null)
-            this.parentElement.classList.add('semi-active');
+        console.info("ta aki dentro")
+        var status = this.parentElement.classList.toggle('active');
+        if (!status) {
+            var qsa = this.parentElement.querySelectorAll('li.active')
+            for (var i = 0; i < qsa.length; i++) {
+                var x = qsa[i];
+                x.classList.remove('active');
+                x.classList.remove('semi-active');
+            };
         }
+        if (document.querySelector(".menu-float-active"))
+            showMenus(this.menu.id, ev);
+
     }
 
     li.appendChild(a);
@@ -167,61 +161,7 @@ function showMenus(id, ev) {
         goTo(item.target, ev);
         return;
     }
-
-    breadcrumbControl(id);
-
-    var mf = document.querySelector('.menu-float');
-    mf.children[2].innerHTML = '';
-
-    items.forEach(function (v) {
-        var childrens = mnRm.filter(function (x) { return x.parentId == v.id });
-        var li = "";
-
-        if (childrens.length) {
-            li = "<ul>";
-            try {
-                childrens.forEach(function (i, j) {
-                    li += '<li><i class="' + i.icon + '">&nbsp;</i><a href="#" onclick="showMenus(\'' + i.id + '\', event), event.stopPropagation();">' + i.title + '</a></li>';
-                    if (j > 2 && menuStyle == 'box-large') {
-                        throw {};
-                    }
-                });
-            } catch (e) {
-                li += "<li>...</li>";
-            }
-            li += "</ul>";
-        }
-
-        var div = document.createElement("div");
-        div.innerHTML = '' +
-            '<a' + (childrens.length == 0 && menuStyle != 'box-large' ? ' class="paint-a"' : "") + '>' +
-            '    <i class="' + v.icon + '"></i>' +
-            '    <div' + (childrens.length > 0 ? ' style="font-weight: 600;"' : "") + '>' + v.title + '</div>' +
-            '</a>' +
-            li;
-
-        div.className = menuStyle;
-        div.menu = v;
-        div.title = v.title;
-        div.onclick = function (ev) {
-            showMenus(this.menu.id, ev);
-        }
-        mf.children[2].appendChild(div);
-    })
-    document.body.classList.add('menu-float-active');
 };
-
-function changeExibitionMenu(el, type) {
-    document.querySelector('nav.menu-float .control-exibition a.active').classList.remove('active');
-    el.classList.add('active');
-    var qsa = document.querySelectorAll('.' + menuStyle);
-    for (var i = 0; i < qsa.length; i++) {
-        var x = qsa[i];
-        x.className = type;
-    }
-    menuStyle = type;
-    showMenus();
-}
 
 function getMenuTreeParents(id) {
     var item = mnRm.filter(function (x) { return x.id == id });
@@ -231,26 +171,6 @@ function getMenuTreeParents(id) {
     return item;
 }
 
-function breadcrumbControl(id) {
-    var tree = getMenuTreeParents(id).reverse();
-
-    var bhtml = document.querySelector(".menu-float ol.breadcrumb");
-    bhtml.innerHTML = '';
-    tree.forEach(function (x, i) {
-        var li = document.createElement('li');
-        var a = document.createElement('a');
-        a.href = 'javascript:void(0)';
-        a.innerHTML = x.title;
-        a.onclick = function (ev) {
-            showMenus(x.id, ev);
-        }
-        li.className = 'breadcrumb-item';
-        li.appendChild(a);
-
-        bhtml.appendChild(li);
-    });
-}
-
 function goTo(url, ev) {
     //workaround to bug <base /> (EDGE)
     var base = "/";
@@ -258,7 +178,7 @@ function goTo(url, ev) {
     var hb = document.getElementById("base");
     if (hb)
         base = hb.href + hb.getAttribute("data-entity") + "/";
-    
+
     ev = ev || event || window.event;
     if (ev && (ev.shiftKey || ev.ctrlKey)) {
         window.open(base + url, ev.ctrlKey ? '_blank' : null);
@@ -275,13 +195,13 @@ function resetMenu() {
 
 function LoadMenu() {
     mnRm = [
-        {"id":"idRoot","title":"Helps","target":"","icon":null,"parentId":null},
-        {"id":"idMenu1","title":"Menu 1","target":"Reports/Information941Report/Index","icon":"fa fa-file","parentId":"idRoot"},
-        {"id":"idSubMenu1","title":"Sub Menu","target":"Reports/B941Report/Index","icon":"fa fa-file","parentId":"idMenu1"},
-        {"id":"idMenu2","title":"Menu 2","target":"Reports/AnalyticPayPeriod/Index","icon":"fa fa-file","parentId":"idRoot"},
-        {"id":"idSubMenu2","title":"Sub Menu 2","target":"Reports/AnalyticByDepartment/Index","icon":"fa fa-file","parentId":"idMenu2"},
-        {"id":"idSubMenu3","title":"Sub Menu 3","target":"Reports/AnalyticByDepartment/Index","icon":"fa fa-file","parentId":"idMenu2"},
-        {"id":"idMenu3","title":"Menu 3","target":"Reports/AnalyticPayPeriod/Index","icon":"fa fa-file","parentId":"idRoot"},
+        { "id": "idRoot", "title": "Helps", "target": "", "icon": null, "parentId": null },
+        { "id": "idMenu1", "title": "Menu 1", "target": "", "icon": "fa fa-file", "parentId": "idRoot" },
+        { "id": "idSubMenu1", "title": "Sub Menu", "target": "Reports/B941Report/Index", "icon": "fa fa-file", "parentId": "idMenu1" },
+        { "id": "idMenu2", "title": "Menu 2", "target": "", "icon": "fa fa-file", "parentId": "idRoot" },
+        { "id": "idSubMenu2", "title": "Sub Menu 2", "target": "Reports/AnalyticByDepartment/Index", "icon": "fa fa-file", "parentId": "idMenu2" },
+        { "id": "idSubMenu3", "title": "Sub Menu 3", "target": "Reports/AnalyticByDepartment/Index", "icon": "fa fa-file", "parentId": "idMenu2" },
+        { "id": "idMenu3", "title": "Menu 3", "target": "Reports/AnalyticPayPeriod/Index", "icon": "fa fa-file", "parentId": "idRoot" },
     ]
     resetMenu();
 }
